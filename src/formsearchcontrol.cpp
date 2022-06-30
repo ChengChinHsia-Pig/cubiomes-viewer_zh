@@ -132,7 +132,7 @@ bool FormSearchControl::setList64(QString path, bool quiet)
         else
         {
             if (!quiet)
-                QMessageBox::warning(this, "警告", "无法从文件读取种子列表", QMessageBox::Ok);
+                QMessageBox::warning(this, "警告", "無法讀取種子列表", QMessageBox::Ok);
         }
     }
     return false;
@@ -148,7 +148,7 @@ void FormSearchControl::searchLockUi(bool lock)
     }
     else
     {
-        ui->buttonStart->setText("开始搜索");
+        ui->buttonStart->setText("開始搜索");
         ui->buttonStart->setIcon(QIcon(":/icons/search.png"));
         ui->buttonStart->setChecked(false);
         ui->buttonStart->setEnabled(true);
@@ -196,17 +196,17 @@ void FormSearchControl::on_buttonStart_clicked()
 
         if (condvec.empty())
         {
-            QMessageBox::warning(this, "警告", "请定义一些约束条件来使用 新增 按钮", QMessageBox::Ok);
+            QMessageBox::warning(this, "警告", "請定義一些條件來使用 新增 按鈕", QMessageBox::Ok);
             ok = false;
         }
         if (sc.searchtype == SEARCH_LIST && slist64.empty())
         {
-            QMessageBox::warning(this, "警告", "没有选择种子列表", QMessageBox::Ok);
+            QMessageBox::warning(this, "警告", "沒有選擇種子列表", QMessageBox::Ok);
             ok = false;
         }
         if (sthread.isRunning())
         {
-            QMessageBox::warning(this, "警告", "仍在搜索", QMessageBox::Ok);
+            QMessageBox::warning(this, "警告", "還在搜索中", QMessageBox::Ok);
             ok = false;
         }
 
@@ -227,7 +227,7 @@ void FormSearchControl::on_buttonStart_clicked()
         if (ok)
         {
             ui->lineStart->setText(QString::asprintf("%" PRId64, (int64_t)sc.startseed));
-            ui->buttonStart->setText("暂停搜索");
+            ui->buttonStart->setText("暫停搜索");
             ui->buttonStart->setIcon(QIcon(":/icons/cancel.png"));
             sthread.start();
             searchLockUi(true);
@@ -242,7 +242,7 @@ void FormSearchControl::on_buttonStart_clicked()
         sthread.stop(); // tell search to stop at next convenience
         //sthread.quit(); // tell the event loop to exit
         //sthread.wait(); // wait for search to finish
-        ui->buttonStart->setText("开始搜索");
+        ui->buttonStart->setText("開始搜索");
         ui->buttonStart->setIcon(QIcon(":/icons/search.png"));
         ui->buttonStart->setChecked(false);
 
@@ -258,7 +258,7 @@ void FormSearchControl::on_buttonMore_clicked()
     int type = ui->comboSearchType->currentIndex();
     if (type == SEARCH_LIST)
     {
-        QString fnam = QFileDialog::getOpenFileName(this, "加载种子列表", parent->prevdir, "Text files (*.txt);;Any files (*)");
+        QString fnam = QFileDialog::getOpenFileName(this, "加載種子列表", parent->prevdir, "Text files (*.txt);;Any files (*)");
         setList64(fnam, false);
     }
     else if (type == SEARCH_INC)
@@ -287,14 +287,14 @@ void FormSearchControl::on_listResults_customContextMenuRequested(const QPoint &
 {
     QMenu menu(this);
 
-    QAction *actremove = menu.addAction(QIcon::fromTheme("list-remove"), "删掉这个(些)种子", this, &FormSearchControl::removeCurrent);
+    QAction *actremove = menu.addAction(QIcon::fromTheme("list-remove"), "删掉這個(些)種子", this, &FormSearchControl::removeCurrent);
     actremove->setEnabled(!ui->listResults->selectedItems().empty());
 
-    QAction *actcopy = menu.addAction(QIcon::fromTheme("edit-copy"), "将整个列表复制到剪贴板", this, &FormSearchControl::copyResults);
+    QAction *actcopy = menu.addAction(QIcon::fromTheme("edit-copy"), "將整個列表複製到剪貼板", this, &FormSearchControl::copyResults);
     actcopy->setEnabled(ui->listResults->rowCount() > 0);
 
     int n = pasteList(true);
-    QAction *actpaste = menu.addAction(QIcon::fromTheme("edit-paste"), QString::asprintf("从剪贴板粘贴 %d 个种子", n), this, &FormSearchControl::pasteResults);
+    QAction *actpaste = menu.addAction(QIcon::fromTheme("edit-paste"), QString::asprintf("從剪貼板粘貼 %d 個種子", n), this, &FormSearchControl::pasteResults);
     actpaste->setEnabled(n > 0);
     menu.exec(ui->listResults->mapToGlobal(pos));
 }
@@ -321,7 +321,7 @@ void FormSearchControl::on_buttonSearchHelp_clicked()
             "this option.)"
             "</p></body></html>"
             ;
-    QMessageBox::information(this, "帮助: 搜索种类", msg, QMessageBox::Ok);
+    QMessageBox::information(this, "幫助: 搜索種類", msg, QMessageBox::Ok);
 }
 
 void FormSearchControl::on_comboSearchType_currentIndexChanged(int index)
@@ -408,7 +408,7 @@ int FormSearchControl::searchResultsAdd(QVector<uint64_t> seeds, bool countonly)
     if (countonly == false && n >= config.maxMatching)
     {
         sthread.stop();
-        QString msg = QString::asprintf("已经达到最大结果数 (%d).", config.maxMatching);
+        QString msg = QString::asprintf("已經達到最大结果数 (%d).", config.maxMatching);
         QMessageBox::warning(this, "警告", msg, QMessageBox::Ok);
     }
 
