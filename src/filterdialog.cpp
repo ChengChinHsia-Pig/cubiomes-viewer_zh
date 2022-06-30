@@ -208,22 +208,22 @@ FilterDialog::FilterDialog(FormConditions *parent, Config *config, int mcversion
     SETUP_TEMPCAT_SPINBOX(Special+Lush);
     SETUP_TEMPCAT_SPINBOX(Special+Cold);
 
-    addVariant("平原 喷泉", plains, 0);
-    addVariant("平原 会合点1", plains, 1);
-    addVariant("平原 会合点2", plains, 2);
-    addVariant("平原 会合点3", plains, 3);
-    addVariant("沙漠 会合点1", desert, 1);
-    addVariant("沙漠 会合点2", desert, 2);
-    addVariant("沙漠 会合点3", desert, 3);
-    addVariant("热带草原 会合点1", savanna, 1);
-    addVariant("热带草原 会合点2", savanna, 2);
-    addVariant("热带草原 会合点3", savanna, 3);
-    addVariant("热带草原 会合点4", savanna, 4);
-    addVariant("针叶林 会合点1", taiga, 1);
-    addVariant("针叶林 会合点2", taiga, 2);
-    addVariant("雪原 会合点1", snowy_tundra, 1);
-    addVariant("雪原 会合点2", snowy_tundra, 2);
-    addVariant("雪原 会合点3", snowy_tundra, 3);
+    addVariant("平原 噴泉", plains, 0);
+    addVariant("平原 會合點1", plains, 1);
+    addVariant("平原 會合點2", plains, 2);
+    addVariant("平原 會合點3", plains, 3);
+    addVariant("沙漠 會合點1", desert, 1);
+    addVariant("沙漠 會合點2", desert, 2);
+    addVariant("沙漠 會合點3", desert, 3);
+    addVariant("热带草原 會合點1", savanna, 1);
+    addVariant("热带草原 會合點2", savanna, 2);
+    addVariant("热带草原 會合點3", savanna, 3);
+    addVariant("热带草原 會合點4", savanna, 4);
+    addVariant("针叶林 會合點1", taiga, 1);
+    addVariant("针叶林 會合點2", taiga, 2);
+    addVariant("雪原 會合點1", snowy_tundra, 1);
+    addVariant("雪原 會合點2", snowy_tundra, 2);
+    addVariant("雪原 會合點3", snowy_tundra, 3);
 
     ui->scrollBiomes->setStyleSheet(
             "QCheckBox::indicator:unchecked     { image: url(:/icons/check0.png); }\n"
@@ -432,17 +432,17 @@ void FilterDialog::updateMode()
 
     if (ft.step > 1)
     {
-        loc = QString::asprintf("位置 (坐标乘数 ×%d)", ft.step);
-        areatip = QString::asprintf("X和Z坐标：从 floor(-[S] / 2) ×%d 到 floor([S] / 2) ×%d (包含边界)", ft.step, ft.step);
-        lowtip = QString::asprintf("下边界 ×%d (含)", ft.step);
-        uptip = QString::asprintf("上边界 ×%d (含)", ft.step);
+        loc = QString::asprintf("位置 (座標乘數 ×%d)", ft.step);
+        areatip = QString::asprintf("X和Z座標：從 floor(-[S] / 2) ×%d 到 floor([S] / 2) ×%d (包含邊界)", ft.step, ft.step);
+        lowtip = QString::asprintf("下邊界 ×%d (含)", ft.step);
+        uptip = QString::asprintf("上邊界 ×%d (含)", ft.step);
     }
     else
     {
         loc = "位置";
-        areatip = "X和Z坐标：从 floor(-[S] / 2) 到 floor([S] / 2) (包含边界)";
-        lowtip = QString::asprintf("下边界 (含)");
-        uptip = QString::asprintf("上边界 (含)");
+        areatip = "X和Z坐標：从 floor(-[S] / 2) 到 floor([S] / 2) (包含邊界)";
+        lowtip = QString::asprintf("下邊界 (含)");
+        uptip = QString::asprintf("上邊界 (含)");
     }
     ui->groupBoxPosition->setTitle(loc);
     ui->labelSquareArea->setToolTip(areatip);
@@ -577,8 +577,8 @@ int FilterDialog::warnIfBad(Condition cond)
         if ((cond.variants & ((1ULL << 60) - 1)) == 0)
         {
             QString text =
-                    "No allowed start pieces specified. Condition can never be true.";
-            QMessageBox::warning(this, "Invalid condition", text, QMessageBox::Ok);
+                    "沒有指定允許的起始部分。 條件不可能是真的。";
+            QMessageBox::warning(this, "無效的條件", text, QMessageBox::Ok);
             return QMessageBox::Cancel;
         }
     }
@@ -592,10 +592,10 @@ int FilterDialog::warnIfBad(Condition cond)
         if (workitemsize > workwarn)
         {
             QString text =
-                    "你刚刚选择的群系条件可能需要一段时间进行查询。你应该考虑缩小搜索区域或者在 编辑>偏好设置 中减少单线程单次搜索种子数。"
+                    "你剛剛選擇的群系條件可能需要一段時間進行查詢。你應該考慮縮小搜索區域或者在 編輯>偏好設置 中減少單線程單次搜索種子數。"
                     "\n\n"
-                    "是否继续?";
-            return QMessageBox::warning(this, "这是一个需要消耗大量计算性能的条件", text, QMessageBox::Ok | QMessageBox::Cancel);
+                    "是否繼續?";
+            return QMessageBox::warning(this, "這個條件需要耗費大量的計算性能", text, QMessageBox::Ok | QMessageBox::Cancel);
         }
     }
     return QMessageBox::Ok;
@@ -751,7 +751,7 @@ void FilterDialog::on_comboBoxCat_currentIndexChanged(int idx)
     ui->comboBoxType->clear();
 
     int slot = 0;
-    ui->comboBoxType->insertItem(slot, "选择筛选条件", QVariant::fromValue((int)F_SELECT));
+    ui->comboBoxType->insertItem(slot, "請選擇篩選條件", QVariant::fromValue((int)F_SELECT));
 
     const FilterInfo *ft_list[FILTER_MAX] = {};
     const FilterInfo *ft;
